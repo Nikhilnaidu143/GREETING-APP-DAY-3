@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springapp.greetingapp.models.Greeting;
 import com.springapp.greetingapp.models.User;
+import com.springapp.greetingapp.services.GreetingService;
 import com.springapp.greetingapp.services.IGreetingService;
 
 @RestController
@@ -47,7 +48,22 @@ public class GreetingRestController {
 
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public Greeting sayHello(@RequestBody User user) {
-		return greetingService.greetingMessage(user.getFirstName(), user.getLastName());
+		
+		/***
+		 * UC-3:- Ability for the Greeting App to give Greeting message with 1. User
+		 * First Name and Last Name or 2. With just First Name or Last Name based on
+		 * User attributes provides or 3. Just Hello World.
+		 ***/
+		
+		if (user.getFirstName() == null && user.getLastName() == null) {
+			return greetingService.greetingMessage();
+		} else if (user.getFirstName() == null) {
+			return greetingService.greetingMessage(user.getLastName());
+		} else if (user.getLastName() == null) {
+			return greetingService.greetingMessage(user.getFirstName());
+		} else {
+			return greetingService.greetingMessage(user.getFirstName(), user.getLastName());
+		}
 	}
 
 	@RequestMapping(value = "/put/{firstName}", method = RequestMethod.PUT)
