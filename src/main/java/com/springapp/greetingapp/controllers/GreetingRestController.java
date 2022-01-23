@@ -21,7 +21,6 @@ public class GreetingRestController {
 
 	public static final String TEMPLATE_1 = "Hello %s!";
 	public static final String TEMPLATE_2 = "Hello %s %s!";
-	public static final AtomicLong COUNTER = new AtomicLong();
 
 	/***
 	 * UC-2:- Extend GreetingController to use Services Layer to get Simple Greeting

@@ -1,5 +1,7 @@
 package com.springapp.greetingapp.models;
 
+import javax.persistence.Entity;
+
 public class User {
 	/** Private variables. **/
 	private String firstName;
