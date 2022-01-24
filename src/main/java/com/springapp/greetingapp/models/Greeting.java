@@ -13,7 +13,7 @@ public class Greeting {
 	private long id;
 
 	private String message;
-	
+
 	/*** Default constructor. ***/
 	public Greeting() {
 
@@ -40,6 +40,5 @@ public class Greeting {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+
 }

@@ -1,6 +1,6 @@
 package com.springapp.greetingapp.controllers;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springapp.greetingapp.models.Greeting;
 import com.springapp.greetingapp.models.User;
-import com.springapp.greetingapp.services.GreetingService;
 import com.springapp.greetingapp.services.IGreetingService;
 
 @RestController
@@ -29,7 +27,7 @@ public class GreetingRestController {
 	 * UC-2:- Extend GreetingController to use Services Layer to get Simple Greeting
 	 * message ”Hello World”.
 	 ***/
-	@Autowired	//AutoWired annotation is used for automatic dependency injection.
+	@Autowired // AutoWired annotation is used for automatic dependency injection.
 	private IGreetingService greetingService;
 
 	@GetMapping(value = { "", "/", "/home" })
@@ -82,5 +80,14 @@ public class GreetingRestController {
 	@GetMapping(value = "/find/{id}")
 	public Greeting getMssg(@PathVariable String id) {
 		return greetingService.findMssgById(id);
+	}
+
+	/***
+	 * UC-6:- Ability for the Greeting App to List all the Greeting Messages in the
+	 * Repository.
+	 ***/
+	@GetMapping("/getAll")
+	public List<Greeting> fetchGreetingMssgsList() {
+		return greetingService.fetchGreetList();
 	}
 }
