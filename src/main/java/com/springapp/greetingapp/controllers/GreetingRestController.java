@@ -90,4 +90,13 @@ public class GreetingRestController {
 	public List<Greeting> fetchGreetingMssgsList() {
 		return greetingService.fetchGreetList();
 	}
+
+	/***
+	 * UC-7:- Ability for the Greeting App to Edit a Greeting Messages in the
+	 * Repository.
+	 ***/
+	@PutMapping("/update")
+	public Greeting updateGreeting(@RequestBody Greeting greeting) {
+		return greetingService.updateGreetingMssg(greeting); 
+	}
 }

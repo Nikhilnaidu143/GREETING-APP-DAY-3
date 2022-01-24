@@ -17,4 +17,6 @@ public interface IGreetingService {
 	public List<Greeting> fetchAllGreetMssgs = null; // Defining list of greeting type;
 
 	public List<Greeting> fetchGreetList();
+	
+	public Greeting updateGreetingMssg(Greeting greeting);
 }
