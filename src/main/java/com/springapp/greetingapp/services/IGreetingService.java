@@ -19,4 +19,6 @@ public interface IGreetingService {
 	public List<Greeting> fetchGreetList();
 	
 	public Greeting updateGreetingMssg(Greeting greeting);
+	
+	public String deleteGreetingMssgByID(String id);
 }

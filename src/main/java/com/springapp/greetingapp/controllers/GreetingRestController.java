@@ -3,6 +3,7 @@ package com.springapp.greetingapp.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,6 +98,15 @@ public class GreetingRestController {
 	 ***/
 	@PutMapping("/update")
 	public Greeting updateGreeting(@RequestBody Greeting greeting) {
-		return greetingService.updateGreetingMssg(greeting); 
+		return greetingService.updateGreetingMssg(greeting);
+	}
+
+	/***
+	 * UC-8:- Ability for the Greeting App to delete a Greeting Messages in the
+	 * Repository.
+	 ***/
+	@DeleteMapping("/delete/{id}")
+	public String deleteGreetingMssg(@PathVariable String id) {
+		return greetingService.deleteGreetingMssgByID(id);
 	}
 }

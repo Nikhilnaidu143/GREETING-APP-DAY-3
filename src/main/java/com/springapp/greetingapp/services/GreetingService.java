@@ -49,16 +49,27 @@ public class GreetingService implements IGreetingService {
 	public List<Greeting> fetchGreetList() {
 		return (List<Greeting>) greetingRepository.findAll();
 	}
-	
+
 	/** Updating existing greeting message. **/
 	@Override
 	public Greeting updateGreetingMssg(Greeting greeting) {
 		Optional<Greeting> findGreeting = greetingRepository.findById(greeting.getId());
-		if(findGreeting.isPresent()) {
+		if (findGreeting.isPresent()) {
 			return greetingRepository.save(greeting);
-		}
-		else {
+		} else {
 			return new Greeting("Greeting is not found in the repository.");
+		}
+	}
+
+	/** Deleting Greeting Message by using id. **/
+	@Override
+	public String deleteGreetingMssgByID(String id) {
+		Optional<Greeting> findGreeting = greetingRepository.findById(Long.parseLong(id));
+		if (findGreeting.isPresent()) {
+			greetingRepository.deleteById(Long.parseLong(id));
+			return "Selected greeting message deleted successfully..!";
+		} else {
+			return "This id is not found in the repository..!";
 		}
 	}
 
