@@ -14,6 +14,11 @@ public class Greeting {
 
 	private String message;
 	
+	/*** Default constructor. ***/
+	public Greeting() {
+
+	}
+
 	/** Parameterized constructor. **/
 	public Greeting(String message) {
 		this.message = message;

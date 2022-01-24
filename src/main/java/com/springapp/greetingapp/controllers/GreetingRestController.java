@@ -3,7 +3,10 @@ package com.springapp.greetingapp.controllers;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,34 +29,34 @@ public class GreetingRestController {
 	 * UC-2:- Extend GreetingController to use Services Layer to get Simple Greeting
 	 * message ”Hello World”.
 	 ***/
-	@Autowired
+	@Autowired	//AutoWired annotation is used for automatic dependency injection.
 	private IGreetingService greetingService;
 
-	@RequestMapping(value = { "", "/", "/home" }, method = RequestMethod.GET)
+	@GetMapping(value = { "", "/", "/home" })
 	public Greeting sayHello() {
 		return greetingService.greetingMessage();
 	}
 
-	@RequestMapping(value = "/query", method = RequestMethod.GET)
+	@GetMapping(value = "/query")
 	public Greeting sayHello(@RequestParam(value = "name", defaultValue = "World") String name) {
 		return greetingService.greetingMessage(name);
 	}
 
-	@RequestMapping(value = "/param/{name}", method = RequestMethod.GET)
+	@GetMapping(value = "/param/{name}")
 	public Greeting sayHelloParam(@PathVariable String name) {
 		return greetingService.greetingMessage(name);
-
 	}
 
-	@RequestMapping(value = "/post", method = RequestMethod.POST)
+	/** creating greetings in mysql database. **/
+	@PostMapping(value = "/post")
 	public Greeting sayHello(@RequestBody User user) {
-		
+
 		/***
 		 * UC-3:- Ability for the Greeting App to give Greeting message with 1. User
 		 * First Name and Last Name or 2. With just First Name or Last Name based on
 		 * User attributes provides or 3. Just Hello World.
 		 ***/
-		
+
 		if (user.getFirstName() == null && user.getLastName() == null) {
 			return greetingService.greetingMessage();
 		} else if (user.getFirstName() == null) {
@@ -65,9 +68,19 @@ public class GreetingRestController {
 		}
 	}
 
-	@RequestMapping(value = "/put/{firstName}", method = RequestMethod.PUT)
+	/*** Updating existing greeting message. ***/
+	@PutMapping(value = "/put/{firstName}")
 	public Greeting sayHello(@PathVariable String firstName,
 			@RequestParam(value = "lastName", defaultValue = "Sundarasetty") String lastName) {
 		return greetingService.greetingMessage(firstName, lastName);
+	}
+
+	/***
+	 * UC-5:- Ability for the Greeting App to find a Greeting Message by Id in the
+	 * Repository.
+	 ***/
+	@GetMapping(value = "/find/{id}")
+	public Greeting getMssg(@PathVariable String id) {
+		return greetingService.findMssgById(id);
 	}
 }
